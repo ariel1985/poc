@@ -8,8 +8,8 @@
           avatar="logo_crcl.png"
           :text="['Hey there']"
           stamp="6:30pm"
-          />
-          <q-chat-message
+        />
+        <q-chat-message
           name="User 1"
           avatar="bot-icon-7.png"
           :text="['Hey, been trying to reach you...']"
@@ -46,6 +46,12 @@
           text-color="white"
         />
       </q-card-section>
+
+      <!-- Footer section for input and send button -->
+      <q-card-section class="row items-center q-pa-md">
+        <q-input filled v-model="text" class="col" placeholder="Type your message here" />
+        <q-btn flat round icon="send" @click="sendMessage" class="q-ml-md" />
+      </q-card-section>
     </q-card>
   </q-page>
 </template>
@@ -54,6 +60,18 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'IndexPage'
+  name: 'IndexPage',
+  data () {
+    return {
+      text: '' // Model for the input
+    }
+  },
+  methods: {
+    sendMessage () {
+      // When the send button is clicked, this method will log the message and clear the input
+      console.log(this.text)
+      this.text = '' // Clear the input after sending the message
+    }
+  }
 })
 </script>
