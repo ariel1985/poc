@@ -1,0 +1,47 @@
+[
+    {
+        "sent": true,
+        "name": "Bot",
+        "avatar": "logo_crcl.png",
+        "text": ["Hey there"],
+        "stamp": "6:30pm"
+    },
+    {
+        "name": "User A",
+        "avatar": "bot-icon-7.png",
+        "text": ["Hey, been trying to reach you..."],
+        "stamp": "6:34pm"
+    },
+    {
+        "name": "User B",
+        "avatar": "user_icon_female.png",
+        "text": ["Here I am!"],
+        "stamp": "6:34pm",
+        "bg-color": "purple-8",
+        "text-color": "white"
+    },
+    {
+        "label": "yesterday"
+    },
+    {
+        "sent": true,
+        "name": "Bot",
+        "avatar": "logo_crcl.png",
+        "text": ["Hello"],
+        "stamp": "3 minutes ago"
+    },
+    {
+        "name": "User A",
+        "avatar": "bot-icon-7.png",
+        "text": ["Wanna buy something?"],
+        "stamp": "2 minutes ago"
+    },
+    {
+        "name": "User B",
+        "avatar": "user_icon_female.png",
+        "text": ["Yes!"],
+        "stamp": "6:34pm",
+        "bg-color": "purple-8",
+        "text-color": "white"
+    }
+]

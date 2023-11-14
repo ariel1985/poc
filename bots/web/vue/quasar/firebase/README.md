@@ -5,7 +5,12 @@ A Quasar Project
 ## Install the dependencies
 
 ```bash
-quasar ext add firebase
+quasar ext add firebase # Did not work...
+
+# From the official docs & gpt4
+npm i vuefire firebase 
+npm install @vuefire/core
+
 ```
 
 

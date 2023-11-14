@@ -49,7 +49,7 @@ function createRoZChat() {
 
     // Create an iframe to embed Google
     var iframe = document.createElement('iframe');
-    iframe.src = 'https://www.mako.co.il';
+    iframe.src = 'https://main--steady-tarsier-ea3724.netlify.app/#/';
     iframe.style.width = '95%'; // Take the full width of the box
     iframe.style.height = 'calc(100% - 2.5rem)'; // Take the full height of the box minus the height of the close button
     iframe.style.border = 'none'; // Optional: remove the border of the iframe
