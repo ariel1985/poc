@@ -1,18 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 import importedMessages from 'src/data/chat.json'
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/firestore'
 
-const text = ref('') // Reactive reference for the input text
-const errorMsg = ref('') // Reactive reference for the error message
+const text = ref('')
+const errorMsg = ref('')
 const messages = ref(importedMessages) // Making messages reactive
 
 console.log(messages.value)
 
 const sendMessage = () => {
-  console.log(firebase)
-
   if (!text.value.trim()) {
     errorMsg.value = 'Error - no value..'
     return false
@@ -55,7 +51,7 @@ const sendMessage = () => {
       <div class="sticky-container col">
         <!-- Footer section for input and send button -->
         <q-card-section class="row items-center q-pa-md">
-          <q-input filled v-model="text" class="col" placeholder="Type your message here" />
+          <q-input filled v-model="text" class="col" placeholder="Type your message here" @keyup.enter="sendMessage"/>
           <q-btn flat round icon="send" @click="sendMessage" class="q-ml-md" />
         </q-card-section>
         <div v-if='errorMsg' class='error'>
@@ -68,9 +64,10 @@ const sendMessage = () => {
 
 <style>
 .sticky-container {
-  position: fixed; /* Fixed positioning */
-  bottom: 0;       /* Stick to the bottom */
-  z-index: 10;     /* Ensures it stays on top of other elements */
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
 }
 .error {
   padding: 1em;
