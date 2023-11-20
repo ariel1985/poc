@@ -37,21 +37,15 @@ const sendMessage = () => {
     <q-card style="max-width: 400px;" class="col full-width">
       <q-card-section>
         <!-- Iterate over messages -->
-        <q-chat-message v-for="(message, index) in messages" :key="index"
-          :sent="message.sent"
-          :name="message.name"
-          :avatar="message.avatar"
-          :text="message.text"
-          :stamp="message.stamp"
-          :bg-color="message['bg-color']"
-          :text-color="message['text-color']"
-        />
+        <q-chat-message v-for="(message, index) in messages" :key="index" :sent="message.sent" :name="message.name"
+          :avatar="message.avatar" :text="message.text" :stamp="message.stamp" :bg-color="message.bgColor"
+          :text-color="message.textColor" />
       </q-card-section>
 
       <div class="sticky-container col">
         <!-- Footer section for input and send button -->
         <q-card-section class="row items-center q-pa-md">
-          <q-input filled v-model="text" class="col" placeholder="Type your message here" @keyup.enter="sendMessage"/>
+          <q-input filled v-model="text" class="col" placeholder="Type your message here" @keyup.enter="sendMessage" />
           <q-btn flat round icon="send" @click="sendMessage" class="q-ml-md" />
         </q-card-section>
         <div v-if='errorMsg' class='error'>
@@ -69,6 +63,7 @@ const sendMessage = () => {
   z-index: 10;
   width: 100%;
 }
+
 .error {
   padding: 1em;
   color: red;

@@ -2,7 +2,7 @@
 function createRoZChat() {
     // chat button
     var img = document.createElement('img');
-    img.src = 'chatgpt4chaticon-modified.png'; // Replace with your image URL
+    img.src = 'https://steady-tarsier-ea3724.netlify.app/images/chaticon.png'; // Replace with your image URL
     img.style.position = 'fixed';
     img.style.bottom = '3vw'; // Padding from bottom, using viewport width
     img.style.right = '4rem'; // Padding from right, using viewport width
@@ -49,7 +49,8 @@ function createRoZChat() {
 
     // Create an iframe to embed Google
     var iframe = document.createElement('iframe');
-    iframe.src = 'https://main--steady-tarsier-ea3724.netlify.app/#/';
+    // iframe.src = 'https://main--steady-tarsier-ea3724.netlify.app/#/';
+    iframe.src = 'localhost:9000/#/'
     iframe.style.width = '95%'; // Take the full width of the box
     iframe.style.height = 'calc(100% - 2.5rem)'; // Take the full height of the box minus the height of the close button
     iframe.style.border = 'none'; // Optional: remove the border of the iframe
@@ -72,7 +73,7 @@ function createRoZChat() {
             box.style.width = '20rem'; // Set a fixed width for desktop
             box.style.height = '50vh'; // Set a fixed height for desktop
             box.style.top = 'auto';
-            box.style.bottom = '9rem'; 
+            box.style.bottom = '9rem';
             box.style.right = '4rem';
         }
     }
@@ -84,12 +85,12 @@ function createRoZChat() {
     window.addEventListener('resize', updateBoxSize);
 
     // Add click event listener to the image to toggle the box visibility
-    img.addEventListener('click', function() {
+    img.addEventListener('click', function () {
         box.style.display = box.style.display === 'none' ? 'flex' : 'none';
     });
 
     // Add click event listener to the close button to hide the box
-    closeButton.addEventListener('click', function() {
+    closeButton.addEventListener('click', function () {
         box.style.display = 'none';
     });
 
