@@ -1,7 +1,7 @@
 <script setup>
-import {collection, doc, setDoc, addDoc, deleteDoc} from 'firebase/firestore'
-import {useCollection} from 'vuefire'
-import {db} from '../main.js'
+import { collection, doc, setDoc, addDoc, deleteDoc } from 'firebase/firestore'
+import { useCollection } from 'vuefire'
+import { db } from '../main.js'
 
 const COLLECTION = 'firestore_collection' // TODO - get COLLECTION from queryParam
 const KEY = 'example' // TODO each doc should have multiple keys
@@ -65,7 +65,7 @@ async function handleInputDelete(targetId) {
   console.time(`handleInputDelete`)
 
   await deleteDoc(doc(currentCollection, targetId))
-      .catch(console.error)
+    .catch(console.error)
 
   console.timeEnd(`handleInputDelete`)
 }
@@ -84,19 +84,13 @@ async function handleInputDelete(targetId) {
     </template>
     <template v-else>
       <li v-for="(doc, index) of docs" :key="doc.id">
-        <input
-            class="live"
-            :value="doc[KEY]"
-            type="text"
-            @input.lazy="handleInputChange(doc.id, $event)"
-        />
-        <input type="button" value="➕" @click="handleInputCreate"/>
-        <input type="button" value="➖" @click="handleInputDelete(doc.id)"/>
+        <input class="live" :value="doc[KEY]" type="text" @input.lazy="handleInputChange(doc.id, $event)" />
+        <input type="button" value="➕" @click="handleInputCreate" />
+        <input type="button" value="➖" @click="handleInputDelete(doc.id)" />
       </li>
     </template>
 
   </ul>
-
 </template>
 
 <style>
@@ -112,7 +106,7 @@ async function handleInputDelete(targetId) {
     flex-direction: row;
     gap: .25rem;
 
-    & > input {
+    &>input {
 
       &:is([type="button"]) {
         opacity: 0;
@@ -122,6 +116,7 @@ async function handleInputDelete(targetId) {
         &:hover {
           cursor: pointer;
         }
+
         &:focus {
           opacity: 1;
           pointer-events: initial;
@@ -133,7 +128,7 @@ async function handleInputDelete(targetId) {
           background: #213547;
           color: white;
 
-          ~ input[type="button"] {
+          ~input[type="button"] {
             opacity: 1;
             pointer-events: all;
           }
