@@ -4,9 +4,9 @@ import { defineProps } from 'vue'
 import { auth } from '@/firebase'
 import {
   createUserWithEmailAndPassword,
-  // signInWithEmailAndPassword,
-  // signOut,
-  // onAuthStateChanged
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
 } from 'firebase/auth'
 
 defineProps({
@@ -18,26 +18,23 @@ const data = ref({
   user: null,
   error: null
 })
-const mode = ref('register')
-// const user = ref(null)
+const mode = ref('login')
+const user = ref(null)
 const errors = ref(null)
 
-function toggleMode(mode) {
-  mode.value = mode
-}
-
+// ---------- user auth ----------
 function login() {
   console.log('login')
-  // signInWithEmailAndPassword(auth, data.value.email, data.value.password)
-  //   .then(userCredential => {
-  //     data.value.user = userCredential.user;
-  //     console.log('userCredential', userCredential)
-  //   })
-  //   .catch(error => {
-  //     console.log('error', error.message)
-  //     data.value.error = error.message;
-  //     errors.value = error.message;
-  //   });
+  signInWithEmailAndPassword(auth, data.value.email, data.value.password)
+    .then(userCredential => {
+      data.value.user = userCredential.user;
+      console.log('userCredential', userCredential)
+    })
+    .catch(error => {
+      console.log('error', error.message)
+      data.value.error = error.message;
+      errors.value = error.message;
+    });
 }
 
 function register() {
@@ -45,7 +42,6 @@ function register() {
   createUserWithEmailAndPassword(auth, data.value.email, data.value.password)
     .then(userCredential => {
       console.log('userCredential', userCredential)
-      data.value.user = userCredential.user;
     })
     .catch(error => {
       console.log('error', error)
@@ -56,39 +52,44 @@ function register() {
 
 function logout() {
   console.log('logout')
-  // signOut(auth)
-  //   .then(() => {
-  //     data.value.user = null;
-  //   })
-  //   .catch(error => {
-  //     data.value.error = error.message;
-  //     errors.value = error.message;
-  //   });
+  signOut(auth)
+    .then(() => {
+      data.value.user = null;
+    })
+    .catch(error => {
+      data.value.error = error.message;
+      errors.value = error.message;
+    });
+}
+// ---------- ./user auth ----------
+
+function toggleMode(setmode) {
+  console.log('toggleMode', setmode)
+  mode.value = setmode === 'login' ? 'register' : 'login'
 }
 
 function submit() {
   console.log('submit - mode value: ', mode.value)
   if (mode.value === 'login') {
     login()
-    logout()
   } else {
     register()
   }
 }
 
-// onAuthStateChanged(auth, user => {
-//   console.log('user', user)
-//   data.value.user = user;
-// })
+onAuthStateChanged(auth, currentUser => {
+  console.log('onAuthStateChange user', currentUser)
+  user.value = currentUser;
+})
 </script>
 
 <template>
   <div class="container">
     <h1 class="title"> {{ title }}</h1>
-    <!-- <div v-if="user">
-                      Welcome { { user?.email } }
-                      <button @click="logout">Logout</button>
-                    </div> -->
+    <div v-if="user">
+      Welcome <b>{{ user?.email }}</b>&nbsp;&nbsp;
+      <button class="btn" @click="logout">Logout</button>
+    </div>
     <form @submit.prevent="submit" class="form">
 
       <div class="form-group">
@@ -100,25 +101,26 @@ function submit() {
         <input type="password" id="password" v-model="data.password" placeholder="Password" />
       </div>
 
-      <button type="submit" class="submit-btn"> {{ mode === 'login' ? 'Login' : 'Register' }}</button>
+      <button type="submit" class="btn"> {{ mode === 'login' ? 'Login' : 'Register' }}</button>
 
-      <div @click="toggleMode(mode === 'login' ? 'Login' : 'Register')" class="toggle-mode">
-        {{ mode === 'login' ? 'Already a user? Login' : 'Not yet a user? Register' }}
+      <div @click="toggleMode(mode === 'login' ? 'login' : 'register')" class="toggle-mode">
+        {{ mode === 'login' ? 'Not yet a user? Register' : 'Already a user? Login' }}
       </div>
 
       <div class="error-message" v-if="errors">{{ errors }}</div>
 
     </form>
+    <div>Users list demands a server side rendering.</div>
   </div>
 </template>
 
-<style scoped>
+<style>
 .title {
   text-align: center;
   margin-bottom: 20px;
   font-size: 2em;
   background: linear-gradient(to right, #007BFF, #00FFA3);
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -156,7 +158,7 @@ function submit() {
   border: 1px solid #ddd;
 }
 
-.submit-btn {
+.btn {
   background-color: #007BFF;
   color: #fff;
   padding: 10px 15px;
