@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+env.bak/
+env1/
+env2/
+env3/
+
+# IDE
+.vscode/
+*.code-workspace
+
+# Miscellaneous
+*.log
+*.bak
+*.swp
+.DS_Store
+
+.secret
