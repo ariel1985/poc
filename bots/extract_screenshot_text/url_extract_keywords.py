@@ -5,6 +5,13 @@ import re
 import collections
 import datetime
 import json
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+TELEGRAM_BOT_API_KEY = os.getenv('TELEGRAM_BOT_API_KEY')
+print(TELEGRAM_BOT_API_KEY)
+
 
 
 
@@ -26,26 +33,18 @@ def extract_keywords(url, keywords):
         keywords_frequency['keywords'][keyword] = counter[keyword]
     return keywords_frequency
 
+# function to connect to telegrambot and send the result to the user
+def send_to_telegrambot(url, keywords):
+    # create a message to send to the user
+    message = f"Here are the results for {url} at {keywords['datetime']}\n"
+    for keyword in keywords['keywords']:
+        message += f"{keyword}: {keywords['keywords'][keyword]}\n"
+    # send the message to the user
+    requests.get(f"https://api.telegram.org/bot{TELEGRAM_BOT_API_KEY}/sendMessage?chat_id=123456789&text={message}")
+    
+
 
 url = "https://edition.cnn.com/"
 words = extract_keywords(url, ['Trump', 'Biden', 'Israel', 'Gaza'])
 print(words)
-
-
-# function to connect to telegrambot and send the result to the user
-def send_to_telegrambot(url, keywords):
-    # import the required libraries
-    # specify the url of the telegrambot
-    url = "https://api.telegram.org/bot<token>/sendMessage"
-    # specify the chat_id of the user
-    chat_id = "<chat_id>"
-    # specify the text to be sent
-    text = json.dumps(keywords)
-    # specify the parameters
-    parameters = {'chat_id': chat_id, 'text': text}
-    # send the request
-    response = requests.get(url, params=parameters)
-    # print the response
-    print(response.json())
-
-
+send_to_telegrambot(url, words)
