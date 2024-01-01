@@ -39,6 +39,7 @@ def send_to_telegrambot(url, keywords):
     message = f"Here are the results for {url} at {keywords['datetime']}\n"
     for keyword in keywords['keywords']:
         message += f"{keyword}: {keywords['keywords'][keyword]}\n"
+    print(message)
     # send the message to the user
     requests.get(f"https://api.telegram.org/bot{TELEGRAM_BOT_API_KEY}/sendMessage?chat_id=123456789&text={message}")
     
