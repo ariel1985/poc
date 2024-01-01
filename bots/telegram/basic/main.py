@@ -1,11 +1,13 @@
 from typing import Final
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+# import env variables for Token and Bot Username
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-
-TOKEN: Final = '5825747513:AAFLaXlZ0D4omXvp71MY3quvpXE0LG6gWK0'
-BOT_USERNAME: Final = '@playbot'
-
+TOKEN: Final = os.getenv('TELEGRAM_BOT_API_KEY')
+BOT_USERNAME: Final = os.getenv('TELEGRAM_BOT_USERNAME')
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text('Hello, lets talk :)')
