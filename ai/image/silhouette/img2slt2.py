@@ -45,4 +45,4 @@ def create_silhouette(filename, output_size=(500, 500)):
     cv2.destroyAllWindows()
 
 # Call the function
-create_silhouette('0.jpeg')
+create_silhouette('rmbg_0.jpeg')
