@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "RzKiiKn+aoZ5jOe9TMA475QtnTjnZhZGoo8IGnU10A4LCBkh7Up6Y1c3JIHizkuynBClbkMP4lSuSoI3N6yAMg==",
+  "success": true,
+  "projectFilePath": "/home/ro/Dropbox/Scripts/job_interview_jobs/travelFactory/HelloWorldServer/HelloWorldServer.csproj",
+  "expectedPackageFiles": [
+    "/home/ro/.nuget/packages/microsoft.aspnetcore.openapi/8.0.3/microsoft.aspnetcore.openapi.8.0.3.nupkg.sha512",
+    "/home/ro/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/ro/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/home/ro/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/home/ro/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/home/ro/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/home/ro/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}
