@@ -13,3 +13,8 @@ __pycache__/
 # venv
 venv/
 
+
+# cert files
+*.pem
+*.crt
+*.key
