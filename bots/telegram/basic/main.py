@@ -4,10 +4,13 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 # import env variables for Token and Bot Username
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 
 TOKEN: Final = os.getenv('TELEGRAM_BOT_API_KEY')
 BOT_USERNAME: Final = os.getenv('TELEGRAM_BOT_USERNAME')
+
+print(TOKEN, BOT_USERNAME)
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text('Hello, lets talk :)')
