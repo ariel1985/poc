@@ -9,6 +9,11 @@ from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandl
 load_dotenv()
 
 TOKEN = os.getenv('TELEGRAM_BOT_API_KEY')
+HTTP_PORT = os.getenv('HTTP_SERVER_PORT')
+HTTP_CERT = os.getenv('HTTP_SERVER_CERT')
+HTTP_KEY = os.getenv('HTTP_SERVER_KEY')
+HTTP_WEBHOOK_URL = os.getenv('HTTP_SERVER_WEBHOOK_URL')
+
 
 ##### Create a simple HTTP server to serve the ASGI application
 from asgiref.wsgi import WsgiToAsgi
@@ -37,20 +42,22 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         reply_markup=ForceReply(selective=True),
     )
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text("Help!")
-
-async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_text(update.message.text)
-
 def main() -> None:
     application = Application.builder().token(TOKEN).build()
 
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
-
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+    
+    # application.run_polling(allowed_updates=Update.ALL_TYPES) # listens to all 
+    
+    # https://github.com/python-telegram-bot/python-telegram-bot/wiki/Webhooks
+    application.run_webhook(
+        listen='0.0.0.0',
+        port=HTTP_PORT,
+        secret_token=TOKEN,
+        key=HTTP_KEY,
+        cert=HTTP_CERT,
+        webhook_url=HTTP_WEBHOOK_URL
+    )
 
 if __name__ == "__main__":
 
