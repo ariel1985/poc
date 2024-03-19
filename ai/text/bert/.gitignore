@@ -1,0 +1,21 @@
+# .gitignore for python env
+
+# venv
+venv/
+ENV/
+
+# virtualenv
+.env/
+.venv/
+env/
+.env
+
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.dylib
+*.pyd
+*.pyo
+*.pyc
