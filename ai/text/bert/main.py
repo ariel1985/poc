@@ -1,39 +1,31 @@
-from transformers import BertTokenizer, BertForSequenceClassification
-import torch
+from transformers import T5Tokenizer, T5ForConditionalGeneration
 
-def bert_summarize(text):
-    # Load pre-trained BERT tokenizer
-    tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+def t5_summarize(text):
+    # Load pre-trained T5 tokenizer and model
+    tokenizer = T5Tokenizer.from_pretrained('t5-base')
+    model = T5ForConditionalGeneration.from_pretrained('t5-base')
 
     # Tokenize input text
-    inputs = tokenizer(text, return_tensors='pt', max_length=512, truncation=True)
+    inputs = tokenizer.encode("summarize: " + text, return_tensors='pt', max_length=512, truncation=True)
 
-    # Load pre-trained BERT model for sequence classification
-    model = BertForSequenceClassification.from_pretrained('bert-base-uncased')
+    # Generate summary
+    summary_ids = model.generate(inputs, max_length=150, min_length=40, length_penalty=2.0, num_beams=4, early_stopping=True)
 
-    # Get logits (scores) for each token
-    outputs = model(**inputs)
-
-    # Compute softmax to get probabilities
-    probabilities = torch.softmax(outputs.logits, dim=1)
-
-    # Extract the most probable token indices for summary
-    summary_token_indices = torch.argmax(probabilities, dim=1)
-
-    # Decode token indices back to text
-    summary_tokens = tokenizer.convert_ids_to_tokens(summary_token_indices.squeeze())
-
-    # Convert tokens back to a summary string
-    summary = tokenizer.convert_tokens_to_string(summary_tokens)
+    # Decode summary
+    summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
 
     return summary
 
-# Example text
-input_text = """
-    Add your text here...
-"""
+# load text from date/chat4u.txt
+input_text = open("data/chat4u.txt", "r").read()
+
+# print first 1000 characters
+
+print('\n*********Input Text*********')
+print(input_text[:100])
 
 # Generate summary
-summary = bert_summarize(input_text)
+summary = t5_summarize(input_text)
 
+print('\n*********Summary*********')
 print(summary)
