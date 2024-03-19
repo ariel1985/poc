@@ -11,3 +11,6 @@ touch .gitignore README.md main.py .env
 ```
 
 TODO: populate files: gitignore README.md main.py
+
+
+ngrok http https://localhost:8000

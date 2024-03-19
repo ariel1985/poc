@@ -1,20 +1,20 @@
-# .gitignore python
+# gitignore for python telegram bot on vscode
 
-venv/
-*.pyc
-*.pyo
-*.pyd
+# Byte-compiled / optimized / DLL files
 __pycache__/
+*.py[cod]
+*$py.class
 
-# env
 .env
-.env.local
-.env.development
-.env.test
 
 # vscode
 .vscode/
-*.code-workspace
+
+# venv
+venv/
 
 
-
+# cert files
+*.pem
+*.crt
+*.key
