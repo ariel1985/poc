@@ -29,11 +29,13 @@ def read_root():
     return {"Hello": "World"}
 
 
-# Open a ngrok tunnel to the uvicorn server
-http_tunnel = ngrok.connect(PORT, bind_tls=True) # bind_tls for https
-public_url = http_tunnel.public_url
-print("Public URL:", public_url)
+if __name__ == "__main__":
+    # Server set up on local environment
+    
+    # Open a ngrok tunnel to the uvicorn server
+    http_tunnel = ngrok.connect(PORT, bind_tls=True) # bind_tls for https
+    public_url = http_tunnel.public_url
+    print("Public URL:", public_url)
 
-
-# Now you can access the FastAPI server over the internet via the ngrok tunnel
-uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Now you can access the FastAPI server over the internet via the ngrok tunnel
+    uvicorn.run(app, host="0.0.0.0", port=8000)
