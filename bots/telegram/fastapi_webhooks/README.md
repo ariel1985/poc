@@ -13,4 +13,24 @@ touch .gitignore README.md main.py .env
 TODO: populate files: gitignore README.md main.py
 
 
-ngrok http https://localhost:8000
+# Set up env
+
+Use zrok to set static domain for telegram
+This domain will be publicly available for every session of localhost:8000
+
+
+ ```bash
+ zrok release <previouse id>
+ zrok reserve public localhost:8000 
+ zrok share reserved <new id>
+ ```
+
+Run telegram api to set the new domain
+
+api.... {telegram toke}/{newdomain}/webhook_name
+
+Run python fastAPI
+
+```bash
+uvicorn main:app --reload
+```
