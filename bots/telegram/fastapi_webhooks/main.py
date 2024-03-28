@@ -2,7 +2,7 @@
 # main.py
 
 # web framework for building APIs with Python
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 # import TelegramBot class from cls_telegram_bot
 from cls_telegram_bot import TelegramBot
@@ -38,26 +38,13 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-
 @app.post("/webhook/{token}")
-async def webhook(token: str, message: Message):
-    data = {"token": token, "status": "success" , "message": message}
-
-    # Send a message with the received text
-    chat_id = message.chat.id  # Get the chat ID from the received message
-    text = message.text  # Get the text from the received message
-    
-    print("Message text: ", text)
-    print("Chat ID: ", chat_id)
-    
-    # url = f"https://api.telegram.org/bot{token}/sendMessage"  # URL for the sendMessage method
-    # payload = {"chat_id": chat_id, "text": f"{chat_id} : {text}"}  # Payload for the POST request
-    # response = requests.post(url, data=payload)  # Send the POST request
-    # if response.status_code != 200:  # Check if the request was successful
-    
+async def webhook(token: str, request: Request):
+    data = await request.json()
+    message = Message(**data.get('message', {}))
+    print("Message text: ", message.text)
+    print("Chat ID: ", message.chat.id)
     print("data: ", data)
-    #     print(f"Failed to send message: {response.content}")
-
     return data
 
 
