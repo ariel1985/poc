@@ -5,6 +5,7 @@
 from fastapi import FastAPI
 
 import httpx
+from pydantic import BaseModel
 
 # environment variable dotenv
 from dotenv import load_dotenv
@@ -12,6 +13,11 @@ import os
 
 load_dotenv()
 
+# ---- DataModels ----
+class BotMessage(BaseModel):
+    token: str
+    status: str
+    message: dict
 
 # ---- API ----
 
@@ -22,37 +28,35 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/webhook/{token}")
-def read_root():
-    return {"Hello": "Webhook token"}
-
+# 
+@app.post("/webhook/{token}")
+async def webhook(token: str, message: BotMessage):
+    data = {"token": token, "status": "success" , "message": message}
+    print("data: ", data)
+    return data
 
 # ---- Telegram ----
 
 HOST_URL = os.getenv("TELEGRAM_WEBHOOK_URL")
+print("----------------------HOST_URL: ", HOST_URL)
 PORT = os.getenv("TELEGRAM_WEBHOOK_PORT")
 TOKEN = os.getenv("TELEGRAM_BOT_API_KEY")
-# webhook_security = OnlyTelegramNetworkWithSecret(real_secret="your-secret-from-config-or-env")
-# TODO: possible upgrades
-#  - move {secret} to path
-#  - use OnlyTelegramNetworkWithSecret as dependency:
-
 TELEGRAM_BOT_URL = f"https://api.telegram.org/bot{TOKEN}"
 TELEGRAM_SET_WEBHOOK_URL = f"{TELEGRAM_BOT_URL}/setWebhook"
 TELEGRAM_GET_WEBHOOK_INFO_URL = f"{TELEGRAM_BOT_URL}/getWebhookInfo"
-# TELEGRAM_SEND_MESSAGE_URL = f"{TELEGRAM_BOT_URL}/sendMessage"
+TELEGRAM_SEND_MESSAGE_URL = f"{TELEGRAM_BOT_URL}/sendMessage"
 
 """
 An asynchronous function that sends a POST request 
 to a specified URL with a given payload.
 """
-async def request_json(url, payload):
+async def request_post(url, payload):
     async with httpx.AsyncClient() as client:
         response = await client.post(url, json=payload)
     return response
 
 async def get_telegram_webhook_info():
-    res = await request_json(TELEGRAM_GET_WEBHOOK_INFO_URL, {})
+    res = await request_post(TELEGRAM_GET_WEBHOOK_INFO_URL, {})
     print("response: ", res.json())
     return res.json()
 
@@ -67,7 +71,7 @@ async def isset_telegram_webhook_url(webhook_url) -> bool:
 async def set_telegram_webhook_url() -> bool:
     payload = {"url": f"{HOST_URL}/webhook/{TOKEN}"}
     print("payload: ", payload)
-    res = await request_json(TELEGRAM_SET_WEBHOOK_URL, payload)
+    res = await request_post(TELEGRAM_SET_WEBHOOK_URL, payload)
     print("\n\n req: ", res, "\n\n")
     return res.status_code == 200
 
@@ -87,3 +91,7 @@ async def main():
 if __name__ == "__main__":
     import asyncio
     asyncio.run(main())
+    
+    print("\n\n", HOST_URL, "\n\n" )
+    
+    print('\ncurl -X POST -H "Content-Type: application/json" -d \'{"token": "123", "status": "success", "message": {"text": "Hello World"}}\' ' + HOST_URL + '/webhook/' + TOKEN)
