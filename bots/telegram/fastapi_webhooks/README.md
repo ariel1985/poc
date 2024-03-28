@@ -2,7 +2,6 @@
 
 https://www.freecodecamp.org/news/how-to-build-and-deploy-python-telegram-bot-v20-webhooks/
 
-
 ```bash
 cd project_name
 python -m venv venv
@@ -37,12 +36,11 @@ Run telegram api to set the new domain
 
 api.... {telegram toke}/{newdomain}/webhook_name
 
-Run python fastAPI
+## Run python fastAPI
 
 ```bash
 uvicorn main:app --reload
 ```
-
 
 ## Python Naming Conventions
 
