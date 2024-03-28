@@ -3,6 +3,7 @@
 
 # web framework for building APIs with Python
 from fastapi import FastAPI, Request
+import httpx
 
 # import TelegramBot class from cls_telegram_bot
 from cls_telegram_bot import TelegramBot
@@ -17,17 +18,14 @@ import os
 load_dotenv()
 
 # ---- DataModels ----
+# Data validation and settings management using python type annotations
+
 class Chat(BaseModel):
     id: int
 
 class Message(BaseModel):
     chat: Chat
     text: str
-
-class BotMessage(BaseModel):
-    token: str
-    status: str
-    message: Message
 
 # ---- API ----
 
@@ -45,8 +43,19 @@ async def webhook(token: str, request: Request):
     print("Message text: ", message.text)
     print("Chat ID: ", message.chat.id)
     print("data: ", data)
-    return data
 
+    # Send a message back to the user
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            json={
+                "chat_id": message.chat.id,
+                "text": "Hello, I'm a bot. Your message was: " + message.text
+            }
+        )
+        print("response: ", response.json())
+
+    return data
 
 # ---- Telegram ----
 
