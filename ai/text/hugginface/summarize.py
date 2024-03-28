@@ -16,16 +16,18 @@ def t5_summarize(text):
 
     return summary
 
-# load text from date/chat4u.txt
-input_text = open("data/chat4u.txt", "r").read()
+# if main
+if __name__ == "__main__":
+    # load text from date/chat4u.txt
+    input_text = open("data/chat4u.txt", "r").read()
 
-# print first 1000 characters
+    # print first 1000 characters
 
-print('\n*********Input Text*********')
-print(input_text[:100])
+    print('\n*********Input Text*********')
+    print(input_text[:100])
 
-# Generate summary
-summary = t5_summarize(input_text)
+    # Generate summary
+    summary = t5_summarize(input_text)
 
-print('\n*********Summary*********')
-print(summary)
+    print('\n*********Summary*********')
+    print(summary)
