@@ -74,7 +74,7 @@ async def main():
     
     if not is_exsits_webhook:
         # setting the telegram webhook url
-        status = await set_telegram_webhook_url()
+        status = await tlgrm.set_telegram_webhook_url()
         print("telegram webhook status: ", status)
 
     
