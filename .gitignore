@@ -1,3 +1,16 @@
+# Ignore Visual Studio Code files
+.vscode/
+
+# Ignore virtual environment
+venv/
+
+# Exclude content in the "data" folder
+/data/
+
+# Exclude .env files
+.env
+.env.*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
