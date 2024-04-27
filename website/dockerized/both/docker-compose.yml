@@ -1,0 +1,17 @@
+version: '3'
+services:
+  # Gunicorn service
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.gunicorn
+    ports:
+      - "8000:8000"
+  
+  # Nginx service
+  webserver:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    ports:
+      - "80:80"

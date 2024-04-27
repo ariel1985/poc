@@ -1,12 +1,19 @@
 # Docker Compose
 
+```bash
+docker-compose down
+docker rmi $(docker images -q) -f
+docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)
+```
+
+
 ## Build and run:
 
 - Build an image
 ```bash
 docker-compose build --no-cache
 docker-compose up --build
-
 ```
 
 
