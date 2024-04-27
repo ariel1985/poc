@@ -1,3 +1,19 @@
+# Docker Compose
+
+## Build and run:
+
+- Build an image
+```bash
+docker-compose build --no-cache
+```
+
+- Run a container
+```bash
+docker-compose up --build
+
+```
+
+
 # Dockers
 
 ## Build and run
@@ -25,4 +41,9 @@ docker images
 docker rmi <image_id>
 
 docker rmi $(docker images -q)
+
+docker rmi $(docker images -q) -f
+
+# stop all containers
+docker stop $(docker ps -a -q)
 ```

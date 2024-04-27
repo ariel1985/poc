@@ -7,5 +7,5 @@ COPY . /usr/share/nginx/html
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx when the container has provisioned.
-CMD ["nginx", "-g", "daemon off;"]
+# No need since nginx image already has this command
+# CMD ["nginx", "-g", "daemon off;"]
