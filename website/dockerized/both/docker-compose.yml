@@ -5,8 +5,9 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.gunicorn
-    ports:
-      - "8000:8000"
+    # remove the port mapping - not needed for direct access
+    networks:
+      - app-network
   
   # Nginx service
   webserver:
@@ -14,4 +15,11 @@ services:
       context: .
       dockerfile: ./Dockerfile.nginx
     ports:
-      - "80:80"
+      - 80:80  # Expose NGINX on port 80 of the host machine
+    depends_on:
+      - api
+    networks:
+      - app-network
+
+networks:
+  app-network:

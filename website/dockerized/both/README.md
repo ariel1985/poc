@@ -5,12 +5,15 @@ docker-compose down
 docker rmi $(docker images -q) -f
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
-```
 
+docker-compose build --no-cache
+docker-compose up --build
+```
 
 ## Build and run:
 
-- Build an image
+Build an image
+
 ```bash
 docker-compose build --no-cache
 docker-compose up --build
@@ -29,7 +32,8 @@ docker run -p 8000:8000 myapp
 
 ### Docker Images
 
-- List all images
+List all images
+
 ```bash
 docker images
 ```
