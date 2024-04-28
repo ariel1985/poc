@@ -1,5 +1,7 @@
 # Docker Compose
 
+Remove all images and containers
+
 ```bash
 docker-compose down
 docker rmi $(docker images -q) -f
