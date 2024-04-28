@@ -4,7 +4,7 @@ from t5_processor import T5Processor
 def main():
     # load text from date/chat4u.txt
     try:
-        input_text = open("data/chat4u.html", "r").read()
+        input_text = open("data/chat4u.txt", "r").read()
     except FileNotFoundError:
         print("File not found. Please run scraper.py to download the content first.")
         return
