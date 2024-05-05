@@ -1,0 +1,11 @@
+# Use the Nginx image from Docker Hub
+FROM nginx:latest
+
+# Copy config file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port 80
+EXPOSE 80
+
+# No need since nginx image already has this command
+# CMD ["nginx", "-g", "daemon off;"]
