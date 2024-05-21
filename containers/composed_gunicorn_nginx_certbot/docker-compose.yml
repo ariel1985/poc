@@ -1,0 +1,28 @@
+version: '3'
+services:
+  # Gunicorn service
+  webapi:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.gunicorn
+    env_file:
+      - .env
+    # remove the port mapping - not needed for direct access
+    networks:
+      - app-network
+  
+  # Nginx service
+  webserver:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    ports:
+      - 80:80  # Expose NGINX on port 80 of the host machine
+    depends_on:
+      - webapi
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
