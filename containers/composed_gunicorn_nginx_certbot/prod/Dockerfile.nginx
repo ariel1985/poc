@@ -1,0 +1,17 @@
+# Use the Nginx image from Docker Hub
+FROM nginx:latest
+
+
+FROM nginx:alpine
+
+# Copy config file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# include certbot installation
+RUN apk add --no-cache certbot
+
+# Expose port 80
+EXPOSE 80
+
+# No need since nginx image already has this command
+# CMD ["nginx", "-g", "daemon off;"]
