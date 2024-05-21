@@ -21,12 +21,11 @@ Validate two strings are isomorphic
 3. Approach
 
 check if the size of the strings is the same
-create a hashmap {} to map the chars from R to S
+create a hashmap {} to map the chars from R to S : R[k]->S[k] 
 iterate over the strings
-    if the char is not in the hashmap
+    if the char is NOT in the hashmap
         add the char to the hashmap
-    else
-        if the char in the hashmap is not equal to the char in S
+    else if the char in the hashmap is not equal to the char in S
             return False
 
 create a side dict
@@ -51,15 +50,13 @@ class Solution:
         
         hashmap = {}
         
-        for i in range(len(s)):
-            
-            hKey = s[i]
+        for i, hKey in enumerate(s):
             hVal = t[i]
             
             # Key in hashmap and value is also in hashmap - ideal
-            # if hKey in hashmap.keys() and hVal != hashmap[hKey]: continue
+            # if hKey in hashmap.keys() and hVal == hashmap[hKey]: continue
             
-            # Key is already in hashmap but the value is different - bad
+            # Key is already in hashmap but the value is different - bad - function can only have 1 res
             if hKey in hashmap.keys() and hVal != hashmap[hKey]: 
                 return False
             
@@ -74,14 +71,11 @@ class Solution:
            
         return True
 
-
-
 def test_solution():
-    
     solution = Solution()
-    
     assert solution.isIsomorphic("egg", "add") == True
     assert solution.isIsomorphic("foo", "bar") == False
     assert solution.isIsomorphic("paper", "title") == True
-    
+
+print('Starting test')
 test_solution()
