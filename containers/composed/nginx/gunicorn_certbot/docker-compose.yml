@@ -16,13 +16,29 @@ services:
     build: 
       context: .
       dockerfile: ./Dockerfile.nginx
+    env_file:
+      - .env
     ports:
       - 80:80  # Expose NGINX on port 80 of the host machine
     depends_on:
       - webapi
     networks:
       - app-network
+    
+  # Certbot service
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - webserver
+    networks:
+      - app-network
 
 networks:
   app-network:
     driver: bridge
+
+
+    
