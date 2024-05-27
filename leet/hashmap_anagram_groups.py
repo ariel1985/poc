@@ -47,41 +47,37 @@ class Solution:
             if not results:
                 results.append([v])
                 continue
+            is_in_array = False
             # of any of the strings in the results array
-            for j, w in enumerate(results):
+            for j, r in enumerate(results):
                 # if string is an anagram 
-                
-                # פה הוא שואל רק על הראשון במערך
-                if self.isAnagram(v, w[0]):
+                if self.isAnagram(v, r[0]):
                     # append it to the results array
-                    w.append(v)
-                # else add it to the array
-                else:
-                    results.append([v])
-                break
-                
-        print('results: ', results)
+                    r.append(v)
+                    is_in_array = True
+                    break
+            # else, if not in the array add it to the array
+            if not is_in_array:
+                results.append([v])
         return results
         
     def isAnagram(self, s: str, t: str) -> bool:
-        # strings must be same length 
+        # strings must be same length
         if len(s) != len(t):
             return False
-        
         s = list(s)
         t = list(t)
-                
         s.sort()
         t.sort()
-        
         # compare the counts
         return s == t
 
 def test_solution():
     s = Solution()
-    assert s.groupAnagrams(["eat","tea","tan","ate","nat","bat"]) == [["bat"],["nat","tan"],["ate","eat","tea"]]
-    # assert s.groupAnagrams([""]) == [[""]]
-    # assert s.groupAnagrams(["a"]) == [["a"]]
+    print('Final:', s.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
+    assert sorted([sorted(lst) for lst in s.groupAnagrams(["eat","tea","tan","ate","nat","bat"])]) == sorted([sorted(lst) for lst in [["ate","eat","tea"],["nat","tan"],["bat"]]])
+    assert s.groupAnagrams([""]) == [[""]]
+    assert s.groupAnagrams(["a"]) == [["a"]]
     
 
 test_solution()
