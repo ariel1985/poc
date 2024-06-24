@@ -32,6 +32,15 @@ At the end string should be empty
 
 class Solution:
     def isValid(self, s: str) -> bool:
+        """ Check if the paranthesis is valid
+            stack holds the opening paranthesis and checks if the closing paranthesis is valid 
+
+        Args:
+            s (str): _description_
+
+        Returns:
+            bool: _description_
+        """
         # stack to hold the paranthesis
         stack = []
         opening = ['[', '(', '{']
@@ -45,16 +54,20 @@ class Solution:
             return False
         
         for i,v in enumerate(s):
+            # print(i, '_____ v:', v, 'stack:', stack)
             if v in opening:
                 stack.append(v)
             elif v in closing:
-                print('v:', v, 'stack:', stack)
-                char = stack.pop()
+                try:
+                    char = stack.pop()
+                except IndexError:
+                    char = False
+                    
                 # get the index of the closing paranthesis
                 index = closing.index(v)
-                print('char:', char, 'index:', index, 'opening:', opening[index])
+                # print('_____ char:', char, 'index:', index, 'opening:', opening[index])
                 # char needs to be the opening paranthesis of the closing paranthesis
-                if char == opening[index]:
+                if char and char == opening[index]:
                     continue
                 else:
                     return False
@@ -64,16 +77,17 @@ class Solution:
         # stack should be empty
         return not stack
     
+
 def test_solution():
     s = Solution()
-    print(s.isValid("(){}}{"))
-    # assert s.isValid("]") == False
-    # assert s.isValid("[]") == True
-    # assert s.isValid("[") == False
-    # assert s.isValid("(]") == False
-    # assert s.isValid("[()[]]") == True
-    # assert s.isValid("[({})]") == True
-    # assert s.isValid("(){}}{") == False
+    # print(s.isValid("(){}}{"))
+    assert s.isValid("]") == False
+    assert s.isValid("[]") == True
+    assert s.isValid("[") == False
+    assert s.isValid("(]") == False
+    assert s.isValid("[()[]]") == True
+    assert s.isValid("[({})]") == True
+    assert s.isValid("(){}}{") == False
     
-    
+
 test_solution()
