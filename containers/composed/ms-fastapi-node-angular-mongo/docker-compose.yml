@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  
+  # localhost:3000
+  node-service:
+    build: ./node-service
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+
+  # localhost:8000/docs
+  fastapi-service:
+    build: ./fastapi-service
+    ports:
+      - "8000:8000"
+    networks:
+      - mynetwork
+
+  # localhost:4200
+  angular-service:
+    build: ./angular-service
+    ports:
+      - "4200:80"
+    networks:
+      - mynetwork
+
+  # localhost:27017
+  # mongo:
+  #   image: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - mynetwork
+
+networks:
+  mynetwork:
+
+# To build the services
+# docker-compose up --build
