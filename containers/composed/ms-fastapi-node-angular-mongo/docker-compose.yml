@@ -26,12 +26,12 @@ services:
       - mynetwork
 
   # localhost:27017
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-    networks:
-      - mynetwork
+  # mongo:
+  #   image: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - mynetwork
 
 networks:
   mynetwork:
