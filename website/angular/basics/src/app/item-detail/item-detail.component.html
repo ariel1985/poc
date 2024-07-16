@@ -1,0 +1,17 @@
+<p>item-detail works!</p>
+
+@if (items.length === 0) {
+  <ng-template #noDetails>
+    <p>No details available.</p>
+  </ng-template>
+}
+@else {
+    @for (item in items: track item.id) {
+    <div>
+        <h2>Item Details</h2>
+        <p>ID: {{ item.id }}</p>
+        <p>Name: {{ item.title }}</p>
+    </div>
+    }
+}
+
