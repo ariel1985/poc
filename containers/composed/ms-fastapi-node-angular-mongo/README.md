@@ -44,9 +44,8 @@ docker run -p 4200:80 angular-service
 docker rmi $(docker images -a -q)
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
+```
 
-   ```
-   
 
 3. Access the APIs:
    - Node.js service: [http://localhost:3000](http://localhost:3000)
@@ -74,3 +73,4 @@ node -v # should print `v20.15.1`
 # verifies the right NPM version is in the environment
 npm -v # should print `10.7.0`
 ```
+

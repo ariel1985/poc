@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  node-service:
+    build: ./node-service
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+
+  fastapi-service:
+    build: ./fastapi-service
+    ports:
+      - "8000:8000"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

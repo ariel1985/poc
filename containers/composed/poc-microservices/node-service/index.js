@@ -3,7 +3,7 @@ const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => {
-  res.send('Hello World from Node.js!  🚀 - this is MS-FASTAPI-NODE-ANGULAR-MONGO app');
+  res.send('Hello World from Node.js!');
 });
 
 app.listen(port, () => {
