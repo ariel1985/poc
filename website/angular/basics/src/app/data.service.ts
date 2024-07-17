@@ -21,4 +21,8 @@ export class DataService {
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(this.url);
   }
+
+  getItemById(id: number): Observable<Item> {
+    return this.http.get<Item>(`${this.url}/${id}`);
+  }
 }

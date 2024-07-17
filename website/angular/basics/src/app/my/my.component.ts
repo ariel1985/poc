@@ -11,7 +11,7 @@ interface Item {
   standalone: true,
   imports: [],
   template: `
-    <h2>My Component</h2>
+    <h2>My List Component</h2>
 
     {{ items.length }} items found.
 

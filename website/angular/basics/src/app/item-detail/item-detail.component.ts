@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { DataService } from '../data.service';
 
 interface Item {
   id: number;
@@ -7,9 +8,36 @@ interface Item {
 
 @Component({
   selector: 'app-item-detail',
-  templateUrl: './item-detail.component.html',
+  standalone: true,
+  imports: [ ],
+  template: `<p>item-detail works!</p>
+
+@if (item) {
+  <div>
+    <h2>Item Details</h2>
+    <p>ID: {{ item.id }}</p>
+    <p>Name: {{ item.title }}</p>
+  </div>
+}
+@else {
+    <ng-template #noDetails>
+    <p>No details available.</p>
+    </ng-template>
+}
+
+`,
   styleUrls: ['./item-detail.component.css']
 })
 export class ItemDetailComponent {
-  @Input() item: Item | null = null;
+  item?: Item;
+
+  constructor(private dataService: DataService) { 
+    console.log('Item Detail Component is activated!');
+  }
+
+  ngOnInit() {
+    // get  details from id given from parent and the service
+    this.dataService.getItemById(1).subscribe((data: Item) => this.item = data)
+    ;
+  }
 }
