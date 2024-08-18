@@ -12,7 +12,8 @@ interface Item {
 })
 export class DataService {
 
-  private url = 'https://jsonplaceholder.typicode.com/posts';
+  // private url = 'https://jsonplaceholder.typicode.com/posts';
+  private url = 'http://localhost:3000/repos';
 
   constructor(private http: HttpClient) { 
     console.log('Data service is activated!');

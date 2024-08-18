@@ -11,8 +11,6 @@ interface Item {
   standalone: true,
   imports: [],
   template: `
-    <h2>My List Component</h2>
-
     {{ items.length }} items found.
 
     @for(item of items; track item.id) {

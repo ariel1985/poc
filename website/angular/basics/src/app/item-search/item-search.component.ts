@@ -7,7 +7,6 @@ import { DataService } from '../data.service';
   standalone: true,
   imports: [FormsModule],
   template: `<p>item-search works!</p>
-
 <input type="number" [(ngModel)]="itemid" placeholder="Enter item id" />
 <button (click)="onSearch()">Search</button>
 `,
