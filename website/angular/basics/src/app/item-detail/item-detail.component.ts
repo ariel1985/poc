@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges, OnInit, OnDestroy } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { DataService } from '../data.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 interface Item {
   id: number;
@@ -9,35 +12,58 @@ interface Item {
 @Component({
   selector: 'app-item-detail',
   standalone: true,
-  imports: [ ],
-  template: `<p>item-detail works!</p>
+  imports: [ NgIf ],
+  template: `
+    <ng-container *ngIf="item; else noItem">
+      <div>
+        <h3>Item Detail</h3>
+        <p>Item ID: {{ item.id }}</p>
 
-@if (item) {
-  <div>
-    <h2>Item Details</h2>
-    <p>ID: {{ item.id }}</p>
-    <p>Name: {{ item.title }}</p>
-  </div>
-}
-@else {
-    <ng-template #noDetails>
-    <p>No details available.</p>
+      </div>
+    </ng-container>
+    <ng-template #noItem>
+      <div>
+        <p>No item selected</p>
+      </div>
     </ng-template>
-}
-
-`,
+  `,
   styleUrls: ['./item-detail.component.css']
 })
-export class ItemDetailComponent {
-  item?: Item;
+export class ItemDetailComponent implements OnChanges, OnInit, OnDestroy {
+  @Input() item: Item | undefined;
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private dataService: DataService) { 
-    console.log('Item Detail Component is activated!');
+    console.log('Item Detail Component - item:', this.item);
   }
 
   ngOnInit() {
-    // get  details from id given from parent and the service
-    this.dataService.getItemById(1).subscribe((data: Item) => this.item = data)
-    ;
+    this.fetchItemDetails();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('ItemDetailComponent - ngOnChanges', changes);
+    if (changes['item'] && changes['item'].currentValue) {
+      this.fetchItemDetails();
+    }
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
+
+  private fetchItemDetails() {
+    if (this.item) {
+      this.dataService.getItemById(this.item.id)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe({
+          next: (data: Item) => this.item = data,
+          error: (error) => console.error('Error fetching item details:', error)
+        });
+    }
+    else {
+      console.log('ItemDetailComponent - item is undefined');
+    }
   }
 }

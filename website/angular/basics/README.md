@@ -31,7 +31,7 @@ ng serve --open
 # Create a new component
 ng generate component my-component
 
-# Create a new service
+# Create a new service (for fetching data from api)
 ng generate service my-service
 
 # Create a new module
