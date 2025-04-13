@@ -31,3 +31,5 @@ with demo:
     smart_output = gr.Textbox(label="Parsed Output")
     smart_btn = gr.Button("Parse and Add Task")
     smart_btn.click(parse_task, inputs=[natural_input], outputs=smart_output)
+    
+# add voice and listeners to gradio tts & stt
