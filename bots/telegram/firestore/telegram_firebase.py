@@ -12,8 +12,9 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 from firebase_handler import FirebaseHandler
 from datetime import datetime
 
-TOKEN: Final = '5825747513:AAFLaXlZ0D4omXvp71MY3quvpXE0LG6gWK0'
-BOT_USERNAME: Final = '@playbot'
+# TODO: get them from env!!
+TOKEN: Final = ''
+BOT_USERNAME: Final = ''
 
 # Initialize the Firebase handler
 firebase = FirebaseHandler()
